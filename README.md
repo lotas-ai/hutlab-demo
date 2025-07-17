@@ -21,6 +21,8 @@ You can download and install the free R software environment [here](https://clou
 Once you've done this, you should see the following section (you might need to click the gear to refresh):
 <img src="https://github.com/lotas-ai/hutlab-demo/blob/713934d127340dd058dcb777983997b9c00720e4/media/images/rao-profile.jpg" style="width:75%;">
 
+For the tutorial, you should also set the "Temperature" to 0 so that the outputs are deterministic. (Outputs will still vary between people for technical reasons related to how Rao provides context, but the variability should be lower.) Clearing your environmental variables with `remove(list = ls())` is also recommended to increase consistency.
+
 #### Setting a working directory
 
 Rao works by indexing your current directory so that it can find files, functions, code blocks, etc. more quickly. Therefore, it's helpful to set your working directory to a narrow directory where you'll perform your analysis. You can check your current working directory with `getwd()` and then create a folder for this demo like:
@@ -30,3 +32,24 @@ dir.create('tutorial')
 ```
 
 Then, use the "Browse..." button of the "Working Directory" section or use `setwd()` to set your working directory to the folder you create.
+
+## 2. Downloading demo data
+
+The demo data consists of metagenomic data and metadata from the [HMP2 Inflammatory Bowel Disease Multi-omics (IBDMDB) dataset](https://www.ibdmdb.org/). It can be downloaded with the following commands:
+```
+dir.create("data", showWarnings = FALSE)
+download.file("https://raw.githubusercontent.com/lotas-ai/hutlab-demo/9189026f2cb66883690c57ad73ad9d96b02a861c/data/hmp2_metadata_2018-08-20.csv", 
+              "data/hmp2_metadata_2018-08-20.csv", 
+              method = "curl")
+download.file("https://raw.githubusercontent.com/lotas-ai/hutlab-demo/9189026f2cb66883690c57ad73ad9d96b02a861c/data/metaphlan4_taxonomic_profiles.tsv", 
+              "data/metaphlan4_taxonomic_profiles.tsv", 
+              method = "curl")
+```
+
+You can inspect the files in your usual tabular data viewer with:
+```
+browseURL("data/hmp2_metadata_2018-08-20.csv")
+browseURL("data/metaphlan4_taxonomic_profiles.tsv")
+```
+Notice that the metadata contains hundreds of columns with lots of missingness, the taxonomic data has a single line comment header, samples are named differently, etc.
+
